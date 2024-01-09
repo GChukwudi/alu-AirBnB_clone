@@ -59,7 +59,7 @@ class BaseModel:
 
 if __name__ == "__main__":
     my_model = BaseModel()
-    my_model.name = "My First Model"
+    my_model.name = "My_First_Model"
     my_model.my_number = 89
     print(my_model.id)
     print(my_model)
