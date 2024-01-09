@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
-
+Module for BaseModel unittest
 """
+import os
 import unittest
 from models.base_model import BaseModel
 
