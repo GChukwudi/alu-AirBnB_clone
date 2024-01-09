@@ -17,7 +17,7 @@ class BaseModel:
         """
         time_format = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
-            for key, value in kwargs.item():
+            for key, value in kwargs.items():
                 if key == "__class__":
                     continue
                 elif key == "created_at" or key == "updated_at":
