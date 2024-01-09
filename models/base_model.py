@@ -20,15 +20,15 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key == "__class__":
                     continue
-                elif key == "created_at" or key == "updated_at":
-                    setattr(self, key, datetime.strptime(value, time_format))
-                else:
-                    setattr(self, key, value)
+                
+                if key in ['created_at' 'updated_at']:
+                    value = datetime.strptime(value, time_format)
 
-        self.id = str(uuid.uuid4())
-
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
+                setattr(self, key, value)
+        else:
+             self.id = str(uuid.uuid4())
+             self.created_at = datetime.utcnow()
+             self.updated_at = datetime.utcnow()
 
     def save(self):
         """
