@@ -15,7 +15,7 @@ class BaseModel:
         """
         Initialize a new instance of the BaseModel
         """
-        self.id = str(uuid.uuid4()) 
+        self.id = str(uuid.uuid4())
 
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -28,7 +28,8 @@ class BaseModel:
 
     def to_dict(self):
         """
-        Returns a dictionary containing all keys/values of __dict__ of the instance
+        Returns a dictionary containing all keys
+        And values of __dict__ of the instance
         """
         key_dict = self.__dict__.copy()
         key_dict["__class__"] = self.__class__.__name__
@@ -42,7 +43,7 @@ class BaseModel:
         Return a string representation of the BaseModel
         """
         name = self.__class__.__name__
-        return "[{}] ({}) {}".format (name, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(name, self.id, self.__dict__)
 
 
 if __name__ == "__main__":
@@ -56,4 +57,8 @@ if __name__ == "__main__":
     print(my_model_json)
     print("JSON of my_model:")
     for key in my_model_json.keys():
-        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+        print("\t{}: ({}) - {}".format(
+            key,
+            type(my_model_json[key]),
+            my_model_json[key]
+            ))
