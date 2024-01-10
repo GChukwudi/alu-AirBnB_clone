@@ -69,7 +69,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload_empty_file(self):
         with self.assertRaises(TypeError):
-            self.storage_instance.reload()
+            self.storage_instance.reload(None)
 
 if __name__ == "__main__":
     unittest.main()
