@@ -4,7 +4,7 @@ Module for the BaseModel class.
 """
 import uuid
 from datetime import datetime
-from models import storage
+from models.engine.file_storage import storage
 
 
 class BaseModel:
@@ -30,15 +30,14 @@ class BaseModel:
              self.id = str(uuid.uuid4())
              self.created_at = datetime.utcnow()
              self.updated_at = datetime.utcnow()
-
-        models.storage.new(self)
+             storage.new(self)
 
     def save(self):
         """
         Update the 'updated_at' attribute with the current datetime
         """
         self.updated_at = datetime.utcnow()
-        models.storage.save()
+        storage.save()
 
     def to_dict(self):
         """
