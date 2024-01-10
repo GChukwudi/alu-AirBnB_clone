@@ -22,7 +22,7 @@ class BaseModel:
                 if key == "__class__":
                     continue
 
-                if key in ['created_at' 'updated_at']:
+                if key in ['created_at', 'updated_at']:
                     value = datetime.strptime(value, time_format)
 
                 setattr(self, key, value)
