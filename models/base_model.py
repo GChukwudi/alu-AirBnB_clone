@@ -47,11 +47,8 @@ class BaseModel:
         """
         key_dict = self.__dict__.copy()
         key_dict["__class__"] = self.__class__.__name__
-
-        if isinstance(self.created_at, datetime.datetime):
-            key_dict["created_at"] = self.created_at.isoformat()
-        if isinstance(self.updated_at, datetime.datetime):
-            key_dict["updated_at"] = self.updated_at.isoformat()
+        key_dict["created_at"] = self.created_at.isoformat()
+        key_dict["updated_at"] = self.updated_at.isoformat()
 
         return key_dict
 
