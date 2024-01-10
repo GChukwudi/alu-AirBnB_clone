@@ -98,7 +98,8 @@ class HBNBCommand(cmd.Cmd):
                 if key.split('.')[0] == command[0]:
                     print(str(value))
 
-    def updated(self, arg):
+    def do_update(self, arg):
+        """Updates an instance based on the class name and id."""
         command = shlex.split(arg)
         if len(command) == 0:
             print("** class name missing **")
@@ -112,7 +113,7 @@ class HBNBCommand(cmd.Cmd):
             key = "{}.{}".format(command[0], command[1])
             if key not in objects:
                 print("** no instance found **")
-            elif len(command) <3:
+            elif len(command) < 3:
                 print("** attribute name missing **")
             elif len(command) < 4:
                 print("** value missing **")
@@ -121,13 +122,20 @@ class HBNBCommand(cmd.Cmd):
                 attribute_name = command[2]
                 attribute_value = command[3]
 
-                try:
-                    attribute_value = eval(attribute_value)
-                except Exception:
-                    pass
-                setattr(obj, attribute_name, attribute_value)
+                # Check if the attribute name is valid
+                if not hasattr(obj, attribute_name):
+                    print("** invalid attribute name **")
+                else:
+                    # Perform type conversion based on attribute type
+                    attribute_type = type(getattr(obj, attribute_name))
+                    try:
+                        attribute_value = attribute_type(attribute_value)
+                    except (ValueError, TypeError):
+                        print("** invalid value type **")
+                        return
 
-                obj.save()
+                    setattr(obj, attribute_name, attribute_value)
+                    obj.save()
 
 
 if __name__ == '__main__':
