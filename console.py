@@ -136,6 +136,7 @@ class HBNBCommand(cmd.Cmd):
 
                     setattr(obj, attribute_name, attribute_value)
                     obj.save()
+                    print("OK")
 
 
 if __name__ == '__main__':
