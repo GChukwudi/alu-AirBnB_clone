@@ -32,8 +32,6 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertNotEqual(initial_updated_at, current_updated_at)
 
-        print("OK")
-
     def test_to_dict(self):
         """
         Test the to_dict method of BaseModel
