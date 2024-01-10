@@ -3,6 +3,7 @@
 """
 import os.path
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -29,7 +30,7 @@ class FileStorage:
         all_objs = FileStorage.__objects
         obj_dict = {}
 
-        for obj in all_obj.keys():
+        for obj in all_objs.keys():
             obj_dict[obj] = all_objs[obj].to_dict()
 
         with open(FileStorage.__file_path, "w", encoding="utf-8") as file:
