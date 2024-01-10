@@ -12,17 +12,17 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self):
-        """
-        """
-        return FileStorage.__objects
-
     def new(self, obj):
         """
         """
         obj_name = obj.__class__.__name__
-        key = "{}.{}", format(obj_name, ob.id)
+        key = "{}.{}".format(obj_name, obj.id)
         FileStorage.__objects [key] = obj
+
+    def all(self):
+        """
+        """
+        return FileStorage.__objects
 
     def save(self):
         """
