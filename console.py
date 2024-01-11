@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
 
             key = "{}.{}".format(command[0], command[1])
             if key in objects:
-               print(objects[key])
+                print(objects[key])
             else:
                 print("** no instance found **")
 
@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
                     pass
 
                 setattr(obj, attribute_name, attribute_value)
-                obj.save() 
+                obj.save()
 
 
 if __name__ == '__main__':
