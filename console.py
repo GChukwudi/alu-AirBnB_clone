@@ -6,6 +6,11 @@ import cmd
 import shlex
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from models import storage
 from datetime import datetime
 
@@ -15,7 +20,8 @@ class HBNBCommand(cmd.Cmd):
     HBNBCommand console class
     """
     prompt = '(hbnb) '
-    classes = ["BaseModel", 'User']
+    classes = ["BaseModel", 'User', "Place", "State", "City",
+                "Amenity", "Review"]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
