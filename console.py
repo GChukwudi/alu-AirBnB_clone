@@ -106,6 +106,27 @@ class HBNBCommand(cmd.Cmd):
                 if key.split('.')[0] == command[0]:
                     print(str(value))
 
+    def default(self, arg):
+        """
+
+        """
+        arg_list = arg.split('.')
+        cl_name = arg_list[0]
+
+        command = arg_list[1].split('(')
+        cmd_meth = command[0]
+        meth_dict = {
+                'all': self.do_all,
+                'show': self.do_show,
+                'destroy': self.do_destroy,
+                'update': self.do_update,
+                }
+        if cmd_meth in meth_dict.keys():
+            return meth_dict[cmd_meth]("{}.{}".format(cl_name, ''))
+
+        print("*** Unknown syntax: {}".format(arg))
+        return False
+
     def do_update(self, arg):
         """Updates an instance based on the class name and id."""
         command = shlex.split(arg)
