@@ -17,7 +17,7 @@ class FileStorage:
         """
         obj_name = obj.__class__.__name__
         key = "{}.{}".format(obj_name, obj.id)
-        FileStorage.__objects [key] = obj
+        FileStorage.__objects[key] = obj
 
     def all(self):
         """
@@ -51,4 +51,4 @@ class FileStorage:
 
                         FileStorage.__objects[key] = instance
                 except Exception:
-                    raise TypeError 
+                    raise TypeError
