@@ -6,6 +6,7 @@ import cmd
 import shlex
 from models.base_model import BaseModel
 from models import storage
+from datetime import datetime
 
 
 class HBNBCommand(cmd.Cmd):
@@ -119,24 +120,17 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 obj = objects[key]
+
                 attribute_name = command[2]
                 attribute_value = command[3]
 
-                # Check if the attribute name is valid
-                if not hasattr(obj, attribute_name):
-                    print("** invalid attribute name **")
-                else:
-                    # Perform type conversion based on attribute type
-                    attribute_type = type(getattr(obj, attribute_name))
-                    try:
-                        attribute_value = attribute_type(attribute_value)
-                    except (ValueError, TypeError):
-                        print("** invalid value type **")
-                        return
+                try:
+                    attribute_value = eval(attribute_value)
+                except Exception:
+                    pass
 
-                    setattr(obj, attribute_name, attribute_value)
-                    obj.save()
-                    print("OK")
+                setattr(obj, attribute_name, attribute_value)
+                obj.save() 
 
 
 if __name__ == '__main__':
