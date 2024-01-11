@@ -43,9 +43,9 @@ class HBNBCommand(cmd.Cmd):
         elif command[0] not in self.classes:
             print("** class doesn't exist **")
         else:
-            new_instance = eval(arg[0].())
+            new_instance = self.classes[arg]()
             new_instance.save()
-            print(new_instance.id)
+            print(new_instance.id) 
 
     def do_show(self, arg):
         """
