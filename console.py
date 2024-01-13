@@ -57,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
     HBNBCommand console class
     """
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
+    clas = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
 
     def emptyline(self):
         """
@@ -86,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(commands) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.classes:
+        elif commands[0] not in self.clas:
             print("** class doesn't exist **")
         else:
             new_instance = eval(f"{commands[0]}()")
@@ -102,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(commands) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.classes:
+        elif commands[0] not in self.clas:
             print("** class doesn't exist **")
         elif len(commands) < 2:
             print("** instance id missing **")
@@ -124,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(commands) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.classes:
+        elif commands[0] not in self.clas:
             print("** class doesn't exist **")
         elif len(commands) < 2:
             print("** instance id missing **")
@@ -149,7 +149,7 @@ class HBNBCommand(cmd.Cmd):
         if len(commands) == 0:
             for key, value in objects.items():
                 print(str(value))
-        elif commands[0] not in self.classes:
+        elif commands[0] not in self.clas:
             print("** class doesn't exist **")
         else:
             for key, value in objects.items():
@@ -170,7 +170,7 @@ class HBNBCommand(cmd.Cmd):
         count = 0
 
         if commands:
-            if cls_nm in self.classes:
+            if cls_nm in self.clas:
                 for obj in objects.values():
                     if obj.__class__.__name__ == cls_nm:
                         count += 1
@@ -189,7 +189,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(commands) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.classes:
+        elif commands[0] not in self.clas:
             print("** class doesn't exist **")
         elif len(commands) < 2:
             print("** instance id missing **")
