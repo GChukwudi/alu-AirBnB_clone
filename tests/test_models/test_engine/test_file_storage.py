@@ -77,5 +77,39 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.storage_instance.reload(None)
 
+class TestFileStorageSave(unittest.TestCase):
+    def setUp(self):
+        self.test_file = "test_file.json"
+        self.storage_instance = FileStorage()
+
+    def tearDown(self):
+        if os.path.exists(self.test_file):
+            os.remove(self.test_file)
+
+    def test_save_creates_file(self):
+        obj = BaseModel()
+        self.storage_instance.new(obj)
+        self.storage_instance.save()
+
+        # Check if the file was created
+        self.assertTrue(os.path.exists(self.storage_instance._FileStorage__file_path))
+
+    def test_save_modifies_file(self):
+        obj = BaseModel()
+        self.storage_instance.new(obj)
+        self.storage_instance.save()
+
+        # Save the modification timestamp before saving again
+        initial_mtime = os.path.getmtime(self.storage_instance._FileStorage__file_path)
+
+        # Add another object and save again
+        obj2 = BaseModel()
+        self.storage_instance.new(obj2)
+        self.storage_instance.save()
+
+        # Check if the modification timestamp has changed
+        current_mtime = os.path.getmtime(self.storage_instance._FileStorage__file_path)
+        self.assertNotEqual(initial_mtime, current_mtime)
+
 if __name__ == "__main__":
     unittest.main()

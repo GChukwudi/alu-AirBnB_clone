@@ -105,6 +105,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in objects.items():
                 if key.split('.')[0] == command[0]:
                     print(str(value))
+    
 
     def default(self, arg):
         """
