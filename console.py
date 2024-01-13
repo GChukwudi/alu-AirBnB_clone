@@ -57,8 +57,7 @@ class HBNBCommand(cmd.Cmd):
     HBNBCommand console class
     """
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User", "Amenity",
-           "Place", "Review", "State", "City"]
+    classes = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
 
     def emptyline(self):
         """
