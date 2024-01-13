@@ -4,6 +4,8 @@ Module for console
 """
 import cmd
 import shlex
+import ast
+import re
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -55,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
     HBNBCommand console class
     """
     prompt = "(hbnb) "
-    valid_classes = ["BaseModel", "User", "Amenity",
+    classes = ["BaseModel", "User", "Amenity",
                      "Place", "Review", "State", "City"]
 
     def emptyline(self):
@@ -85,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(commands) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.valid_classes:
+        elif commands[0] not in self.classes:
             print("** class doesn't exist **")
         else:
             new_instance = eval(f"{commands[0]}()")
@@ -101,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(commands) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.valid_classes:
+        elif commands[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(commands) < 2:
             print("** instance id missing **")
@@ -123,7 +125,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(commands) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.valid_classes:
+        elif commands[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(commands) < 2:
             print("** instance id missing **")
@@ -143,13 +145,12 @@ class HBNBCommand(cmd.Cmd):
                 <User>.show()
         """
         objects = storage.all()
-
         commands = shlex.split(arg)
 
         if len(commands) == 0:
             for key, value in objects.items():
                 print(str(value))
-        elif commands[0] not in self.valid_classes:
+        elif commands[0] not in self.classes:
             print("** class doesn't exist **")
         else:
             for key, value in objects.items():
@@ -162,7 +163,6 @@ class HBNBCommand(cmd.Cmd):
         usage: <class name>.count()
         """
         objects = storage.all()
-
         commands = shlex.split(arg)
 
         if arg:
@@ -171,7 +171,7 @@ class HBNBCommand(cmd.Cmd):
         count = 0
 
         if commands:
-            if cls_nm in self.valid_classes:
+            if cls_nm in self.classes:
                 for obj in objects.values():
                     if obj.__class__.__name__ == cls_nm:
                         count += 1
@@ -190,7 +190,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(commands) == 0:
             print("** class name missing **")
-        elif commands[0] not in self.valid_classes:
+        elif commands[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(commands) < 2:
             print("** instance id missing **")
@@ -249,13 +249,10 @@ class HBNBCommand(cmd.Cmd):
         """
         arg_list = arg.split('.')
 
-        cls_nm = arg_list[0]  # incoming class name
-
+        cls_nm = arg_list[0]
         command = arg_list[1].split('(')
-
-        cmd_met = command[0]  # incoming command method
-
-        e_arg = command[1].split(')')[0]  # extra arguments
+        cmd_met = command[0]
+        e_arg = command[1].split(')')[0]
 
         method_dict = {
                 'all': self.do_all,
