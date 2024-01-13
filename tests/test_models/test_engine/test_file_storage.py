@@ -38,6 +38,13 @@ class TestFileStorage(unittest.TestCase):
         if os.path.exists(self.test_file):
             os.remove(self.test_file)
 
+    def test_objects(self):
+        obj = BaseModel()
+        self.storage_instance.new(obj)
+
+        expected_key = "BaseModel.{}".format(obj.id)
+        self.assertIn(expected_key, self.storage_instance.all())
+
     def test_save_creates_file(self):
         obj = BaseModel()
         self.storage_instance.new(obj)
@@ -97,13 +104,6 @@ class TestFileStorage(unittest.TestCase):
 
         current_mtime = os.path.getmtime(self.storage_instance._FileStorage__file_path)
         self.assertNotEqual(initial_mtime, current_mtime)
-
-    def test_objects(self):
-        obj = BaseModel()
-        self.storage_instance.new(obj)
-
-        expected_key = "BaseModel.{}".format(obj.id)
-        self.assertIn(expected_key, self.storage_instance.all())
 
     def test_reload(self):
         obj = BaseModel()
