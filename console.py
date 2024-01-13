@@ -93,6 +93,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, arg):
+        """
+        
+        """
         objects = storage.all()
 
         command = shlex.split(arg)
@@ -105,28 +108,6 @@ class HBNBCommand(cmd.Cmd):
             for key, value in objects.items():
                 if key.split('.')[0] == command[0]:
                     print(str(value))
-    
-
-    def default(self, arg):
-        """
-
-        """
-        arg_list = arg.split('.')
-        cl_name = arg_list[0]
-
-        command = arg_list[1].split('(')
-        cmd_meth = command[0]
-        meth_dict = {
-                'all': self.do_all,
-                'show': self.do_show,
-                'destroy': self.do_destroy,
-                'update': self.do_update,
-                }
-        if cmd_meth in meth_dict.keys():
-            return meth_dict[cmd_meth]("{}.{}".format(cl_name, ''))
-
-        print("*** Unknown syntax: {}".format(arg))
-        return False
 
     def do_update(self, arg):
         """Updates an instance based on the class name and id."""
@@ -160,6 +141,33 @@ class HBNBCommand(cmd.Cmd):
 
                 setattr(obj, attribute_name, attribute_value)
                 obj.save()
+
+    def do_default(self, arg):
+        """
+
+        """
+        arg_list = arg.split('.')
+        cl_name = arg_list[0]
+
+        command = arg_list[1].split('(')
+        cmd_meth = command[0]
+
+        e_arg = command[1].split(')')[0]
+        meth_dict = {
+                "all": self.do_all,
+                "show": self.do_show,
+                "destroy": self.do_destroy,
+                "update": self.do_update,
+                }
+        if cmd_meth in meth_dict.keys():
+            return meth_dict[cmd_meth]("{}.{}".format(cl_name, e_arg))
+
+        else:
+            if not cls_nm:
+                print("** class name missing **")
+
+        print("*** Unknown syntax: {}".format(arg))
+        return False
 
 
 if __name__ == '__main__':
